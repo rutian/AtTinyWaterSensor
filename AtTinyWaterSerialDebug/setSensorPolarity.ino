@@ -1,3 +1,4 @@
+// flippity floppy
 void setSensorPolarity(boolean flip){
   //subfunction for the voltage flipping
   if(flip){

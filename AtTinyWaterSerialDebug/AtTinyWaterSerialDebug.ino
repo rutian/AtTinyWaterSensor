@@ -2,14 +2,10 @@
 // Onto the AtTiny85
 // 7/24/2013
 
-#define voltageFlipPin1 0 
-#define voltageFlipPin2 1
-#define sensorPin 2 //analog input
-
 
 // setup our softwareSerial communications
 // you must press reset on the arduino to receive communications!
-
+ #include "includes.h"
  #include <SoftwareSerial.h>
  const int rx=4;
  const int tx=3;
@@ -22,9 +18,9 @@
 
 
  // some constants for calibration. 
- double X1 = 212;
+ double X1 = 166;
  double Y1 = 220;// low end calibration solution  
- double X2 = 739;
+ double X2 = 522;
  double Y2 = 3000;// high end calibration solution
  
  // Time to do some maths
