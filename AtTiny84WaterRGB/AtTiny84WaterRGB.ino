@@ -5,17 +5,27 @@
 
 // setup our softwareSerial communications
 // you must press reset on the arduino to receive communications!
- #include "includes.h"
+
  #include <SoftwareSerial.h>
  const int rx=4;
  const int tx=3;
+ 
+ 
+ // includes 
+ #define voltageFlipPin1 0 
+ #define voltageFlipPin2 1
+ #define sensorPin 2 //analog input
+
+ // constants for writing to the RGB led
+ const int ledR;
+ const int ledG;
+ 
  SoftwareSerial mySerial(rx, tx);
 
  // may need to be zero. Dictates the time between when the sensors turn on, and
  // when the voltage is read  (RC time constant of water? Time constant until it reaches fully 
  // 5 volts?
- int flipTimer = 1;
-
+ int flipTimer = 1; // 1 seemed to work well for the attiny85. may need to be changed depending on the chip
 
  // some constants for calibration. 
  double X1 = 166;
@@ -38,7 +48,7 @@ void setup(){
   // configure the output pins
   pinMode(voltageFlipPin1, OUTPUT);
   pinMode(voltageFlipPin2, OUTPUT);
-  pinMode(sensorPin, INPUT); // is this necessary? 
+  pinMode(sensorPin, INPUT); // is this necessary? (may be default)
        
 }
 
