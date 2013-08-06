@@ -17,8 +17,11 @@
  #define sensorPin 2 //analog input
 
  // constants for writing to the RGB led
- const int ledR;
- const int ledG;
+ const int ledR = 6; // temp numbers
+ const int ledG = 7; // temp numbers
+ const int ledB = 8; // temp numbers
+ const int badWater = 2200; // define threshold for sketchy water. start turning orange(?)
+ const int upperBound = 3500; // cannot get any redder than this. maybe start blinking?
  
  SoftwareSerial mySerial(rx, tx);
 
@@ -49,6 +52,8 @@ void setup(){
   pinMode(voltageFlipPin1, OUTPUT);
   pinMode(voltageFlipPin2, OUTPUT);
   pinMode(sensorPin, INPUT); // is this necessary? (may be default)
+  pinMode(ledR, OUTPUT);
+  pinMode(ledG, OUTPUT);
        
 }
 
