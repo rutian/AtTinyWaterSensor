@@ -30,7 +30,20 @@ void loop()
 { 	 
 
 
+color(100);
+delay(1000);
+color(400);
+delay(1000);
+color(1000);
+delay(1000);
+
+// sweeping mid range orange to red
 color(1800);
+delay(1000);
+color(1900);
+delay(1000);
+color(2100);
+delay(1000);
      
 
 } 	 
@@ -47,10 +60,9 @@ void color (int reading)
   else if (reading >=cutoffLow && reading < cutoffHigh)// yo water is getting kinda sketchy
   {
         // do math. scale down the G until you hit cutoffHigh.
-        int value = 510 - ((51/200)*reading) ;
-        mySerial.print(reading);
-        mySerial.print(" ");
-        mySerial.println(value);
+
+        double value = 510 - (.255*reading) ;
+
         analogWrite(ledG,value);
         analogWrite(ledR,255);
            
