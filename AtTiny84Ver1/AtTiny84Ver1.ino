@@ -1,20 +1,36 @@
-
-// Onto the AtTiny84
-// 8/7/2013
-
+/****************************************
+* Onto the AtTiny84!!!!
+* 8/7/2013
+* version "1" 
+* find water quality, then quantitatively 
+* display data through an RGB LED
+* TODO: transfer data to mobile device?
+****************************************/
 
 // setup our softwareSerial communications
 // you must press reset on the arduino to receive communications!
- #include "includes.h"
  #include <SoftwareSerial.h>
- #define voltageFlipPin1 0 
- #define voltageFlipPin2 1
- #define sensorPin 2 //analog input
-
-
  const int rx=4;
  const int tx=3;
  SoftwareSerial mySerial(rx, tx);
+  
+  
+ const int voltageFlipPin1 =10; 
+ const int voltageFlipPin2=  9;
+ const int sensorPin = 0 ;//analog input
+ 
+ /****************
+ * For the RGB LED
+ *
+ *****************/
+ // set cutoff values, relative to potential readings from the sensor
+ const int cutoffLow = 1000; // starting to get sketchy
+ const int cutoffHigh= 2000; // cannot drink if above
+ // 3 pwm pins for the led
+ int ledR = 8; 	
+ int ledG = 7; 	
+ int ledB = 6; 	
+
 
  // may need to be zero. Dictates the time between when the sensors turn on, and
  // when the voltage is read  (RC time constant of water? Time constant until it reaches fully 
@@ -40,10 +56,16 @@ void setup(){
   pinMode(tx,OUTPUT);
   mySerial.begin(4800);
   
+  // configure the led pins
+  pinMode(ledR, OUTPUT); 	
+  pinMode(ledG, OUTPUT); 
+  pinMode(ledB, OUTPUT); 
+  
   // configure the output pins
   pinMode(voltageFlipPin1, OUTPUT);
   pinMode(voltageFlipPin2, OUTPUT);
   pinMode(sensorPin, INPUT); // is this necessary? 
+  mySerial.println("hello world");
        
 }
 
@@ -63,11 +85,15 @@ void loop(){
   settle();
   
   int answer = returnScaled(raw);  
+  // display to RGB led
+  color(answer);
   
   mySerial.print("raw: ");
   mySerial.print(raw);
   mySerial.print(" ans: ");
   mySerial.println(answer);
+  
+  
  
 }
 
